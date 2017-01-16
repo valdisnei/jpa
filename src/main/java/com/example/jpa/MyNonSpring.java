@@ -1,7 +1,7 @@
-package com.example;
+package com.example.jpa;
 
-import com.example.model.AcessoCaptadorOnline;
-import com.example.service.JpaService;
+import com.example.jpa.model.AcessoCaptadorOnline;
+import com.example.jpa.service.JpaServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.time.LocalDateTime;
@@ -11,19 +11,12 @@ import java.time.LocalDateTime;
  */
 public class MyNonSpring {
 
-    private static final MyNonSpring instance = new MyNonSpring();
+    private JpaServiceImpl jpaServiceImpl;
 
 
-    @Autowired
-    private JpaService jpaService;
-
-    private MyNonSpring() {
+    public MyNonSpring(JpaServiceImpl jpaServiceImpl) {
+        this.jpaServiceImpl = jpaServiceImpl;
     }
-
-    public static final MyNonSpring getInstance() {
-        return instance;
-    }
-
 
     public void doSomeThing(String teste){
         System.out.println("teste = " + teste);
@@ -33,7 +26,7 @@ public class MyNonSpring {
         acessoCaptadorOnline.setIdentificacaoCliente("2342342");
         acessoCaptadorOnline.setIdentificacaoServico("234234234");
         acessoCaptadorOnline.setStatusProcessamentoAcessoCaptadorOnlineID(1L);
-        jpaService.save(acessoCaptadorOnline);
+        jpaServiceImpl.save(acessoCaptadorOnline);
     }
 
 

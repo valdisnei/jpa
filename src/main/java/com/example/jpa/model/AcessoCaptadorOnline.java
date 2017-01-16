@@ -1,5 +1,8 @@
-package com.example.model;
+package com.example.jpa.model;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import org.hibernate.annotations.Type;
+import org.pojomatic.Pojomatic;
+import org.pojomatic.annotations.AutoProperty;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -9,7 +12,11 @@ import java.time.LocalDateTime;
 /**
  * Created by valdisnei on 04/01/17.
  */
-//@AutoProperty
+@AutoProperty
+@JsonPropertyOrder({ "acessoCaptadorOnlineID", "data", "identificacaoServico", "identificacaoCliente",
+                    "habilitacaoCaptadorOnlineID",
+                    "statusProcessamentoAcessoCaptadorOnlineID"})
+
 @Entity
 @Table(name = "acessocaptadoronline")
 public class AcessoCaptadorOnline {
@@ -34,8 +41,6 @@ public class AcessoCaptadorOnline {
     @Column(name = "statusprocessamentoacessocaptadoronlineid", unique = false, nullable = false, length = 8)
     private Long statusProcessamentoAcessoCaptadorOnlineID;
 
-    @Transient
-    private String responseRegistroOnline;
 
 
     public Long getAcessoCaptadorOnlineID() {
@@ -86,16 +91,8 @@ public class AcessoCaptadorOnline {
         this.statusProcessamentoAcessoCaptadorOnlineID = statusProcessamentoAcessoCaptadorOnlineID;
     }
 
-    public String getResponseRegistroOnline() {
-        return responseRegistroOnline;
+    @Override
+    public String toString() {
+        return Pojomatic.toString(this);
     }
-
-    public void setResponseRegistroOnline(String responseRegistroOnline) {
-        this.responseRegistroOnline = responseRegistroOnline;
-    }
-
-//    @Override
-//    public String toString() {
-//        return Pojomatic.toString(this);
-//    }
 }
